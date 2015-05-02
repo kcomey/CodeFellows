@@ -3,7 +3,6 @@ var expect = require('chai').expect;
 
 
 
-
 describe('compare file size of transformed color palette to original color palette', function() {
 
   it('expect transformedColor function to change original object', function () {
