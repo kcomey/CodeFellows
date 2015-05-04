@@ -23,7 +23,7 @@ function time(response) {
 
 function greet(response, request, name) {
   console.log("Request handler 'greet' was called.");
-  if (!name) { name = "Stranger"};
+  if (!name) { name = "Stranger";}
 
   var body = '<html>'+
     '<head>'+
