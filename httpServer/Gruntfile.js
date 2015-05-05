@@ -7,7 +7,8 @@ module.exports = function(grunt) {
       src: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
         node: true,
-        mocha: true
+        mocha: true,
+        expr: true
       }
     }
   },
@@ -17,7 +18,7 @@ module.exports = function(grunt) {
   },
 
 jscs: {
-    src: '',
+    src: 'src/**/*.js',
     options: {
       config: ".jscsrc"
     }

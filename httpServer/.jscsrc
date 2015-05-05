@@ -42,6 +42,5 @@
         "ignoreSingleLine": true
     },
     "validateIndentation": 2,
-    "validateLineBreaks": "LF",
-    "validateQuoteMarks": "'"
+    "validateLineBreaks": "LF"
 }
