@@ -1,0 +1,6 @@
+{
+    "id": 1,
+    "note": "Don't forget to get your resume ready for Friday",
+    "author": "Kendall Comey",
+    "date": "May 12, 2015"
+}
