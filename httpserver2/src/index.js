@@ -1,6 +1,6 @@
 'use strict';
 
-var server = require('./server');
+var server = require('./server_functions');
 var express = require('express');
 var http = require('http');
 var app = express();

@@ -1,40 +1,34 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/myproject';
+var url = 'mongodb://localhost:27017/classroom-examples';
 
 var insertDocuments = function(json) {
+  // Set up the connection to the local db
   MongoClient.connect(url, function(err, db) {
-    if (err) {
-      console.log('Error connecting to DB');
+    if(err) {
+      return console.dir(err);
     }
 
-    // Get the first db and do an update document on it
-    var myDB = db("learn");
+  db.collection('notes', {strict:true}, function(err, collection) {
+    if (err) {
+      return console.dir(err);
+    }
 
-    console.log('works here too');
-
-    myDB.collection('classroom-examples').update({a:1}, {b:1}, {upsert:true},
-      function(err, result) {
-        if (err) {
-          console.log('Insert not working');
-        }
-        console.log('Inserted 1 document into the document collection');
+    var doc1 = {'hello':'doc1'};
+    collection.insert(doc1, {w:1}, function(err, result) {
+      if (err) {
+        return console.dir(err);
       }
-      );
-    db.close();
-
+      console.log('insert successful');
+    });
   });
-};
-
-  //db = connect(url[, options], callback);
-  // Get the documents collection
-  //var collection = db.collection('documents');
-  // Insert some documents
+});
+}
 
 exports.insertDocuments = insertDocuments;
 
 
-  // Open the connection to the server
-  //mongoclient.open(function(err, mongoclient) {
+
+
 
 
 
