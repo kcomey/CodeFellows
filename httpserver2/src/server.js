@@ -1,12 +1,13 @@
 'use strict';
 
 var server = require('./server_functions');
+//var mongo = require('./mongo_functions');
 var express = require('express');
 var http = require('http');
 var app = express();
 var bodyParser = require('body-parser');
 
-// middleware
+// This is the middleware
 app.use(bodyParser.json());
 
 app.use(function(err, req, res, next) {
@@ -24,11 +25,9 @@ app.post('/note', function(req, res) {
 
 app.route('/note/:num')
   .get(function(req, res) {
-    server.getNote(req, res);
+    console.log('work to server');
+    //mongo.getDoc(req, res);
   })
-  //.post(function(req, res) {
-  //  server.writeNote(req, res);
-  //})
   .put(function(req, res) {
     server.putNote(req, res);
   })
