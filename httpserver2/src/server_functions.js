@@ -2,12 +2,8 @@ var mongo = require('./mongo');
 var fs = require('fs');
 
 function writeNote(req, res) {
-  // Write the note, POST request
-  //console.log('works to here' + req.params.num);
-  //console.log(JSON.stringify(req.body));
+  // Write the note if you have a POST request
   mongo.insertDocuments(req.body);
-
-  //res.send('Note #:' + req.params.num + ' written successfully!');
 }
 
 function getNote(req, res) {

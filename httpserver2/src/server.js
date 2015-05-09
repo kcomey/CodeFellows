@@ -1,33 +1,50 @@
-var mongo = require('./mongo');
-var fs = require('fs');
+'use strict';
 
-function writeNote(req, res) {
-  // Write the note, POST request
-  //console.log(req.body);
-  console.log('works to here' + req.params.num);
-  console.log(JSON.stringify(req.body));
-  mongo.insertDocuments(req.body);
+var server = require('./server_functions');
+var express = require('express');
+var http = require('http');
+var app = express();
+var bodyParser = require('body-parser');
 
-  //res.send('Note #:' + req.params.num + ' written successfully!');
-}
+// middleware
+app.use(bodyParser.json());
 
-function getNote(req, res) {
-  // Send back the note, GET request
-  res.send('hello getNote' + req.params.num);
-}
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
-function putNote(req, res) {
-  // Update the note, PUT or PATCH request
-  res.send('hello putNote');
-}
+app.get('/', function(req, res) {
+  res.send('Please use /note to access pages');
+});
 
-function deleteNote(req, res) {
-  // Delete the note, DELETE request
-  res.send('hello deleteNote');
-}
+app.post('/note', function(req, res) {
+  server.writeNote(req, res);
+});
 
-exports.writeNote = writeNote;
-exports.getNote = getNote;
-exports.putNote = putNote;
-exports.deleteNote = deleteNote;
+app.route('/note/:num')
+  .get(function(req, res) {
+    server.getNote(req, res);
+  })
+  //.post(function(req, res) {
+  //  server.writeNote(req, res);
+  //})
+  .put(function(req, res) {
+    server.putNote(req, res);
+  })
+  .delete(function(req, res) {
+    server.deleteNote(req, res);
+  })
+  .patch(function(req, res) {
+    server.putNote(req, res);
+  });
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log('server started');
+});
+
+
+
+
+
 
