@@ -19,14 +19,14 @@ var insertDocument = function(json) {
             if (err) {
               return console.dir(err);
             }
-            console.log('insert successful');
           });
       });
     });
   });
 };
 
-var getDocument = function(myNoteId) {
+var getDocument = function(req, res) {
+  var noteNum = Number(req.params.num);
   // Set up the connection to the local db
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -38,18 +38,19 @@ var getDocument = function(myNoteId) {
         return console.dir(err);
       }
       // Ready to rock and roll
-      //{ noteId: "1"}
-      //var query = { Author: 'Kendall'};
-      var query = { noteId: 5};
+      var query = { noteId: noteNum};
       collection.find(query).toArray(function(err, documents) {
         if (err) {
           return console.dir(err);
         }
-        console.log(documents);
+      var note = documents[0];
+      var body = 'Here is the note you requested: <br>' +
+        note.noteBody + '<br>' + '(note id: ' + note.noteId + ')';
+        res.send(body);
       });
     });
   });
-}
+};
 
 exports.getDocument = getDocument;
 exports.insertDocument = insertDocument;
