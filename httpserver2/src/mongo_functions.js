@@ -2,7 +2,6 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017/classroom-examples';
 
 var insertDocument = function(json) {
-  console.log('it is:' + json);
   // Set up the connection to the local db
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -27,8 +26,29 @@ var insertDocument = function(json) {
   });
 };
 
-var getDocument = function(noteId) {
-  console.log('works to mongo, get id: ' + noteId);
+var getDocument = function(myNoteId) {
+  // Set up the connection to the local db
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      return console.dir(err);
+    }
+    // Connect to the collection
+    db.collection('notes', {strict: true}, function(err, collection) {
+      if (err) {
+        return console.dir(err);
+      }
+      // Ready to rock and roll
+      //{ noteId: "1"}
+      //var query = { Author: 'Kendall'};
+      var query = { noteId: 5};
+      collection.find(query).toArray(function(err, documents) {
+        if (err) {
+          return console.dir(err);
+        }
+        console.log(documents);
+      });
+    });
+  });
 }
 
 exports.getDocument = getDocument;

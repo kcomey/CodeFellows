@@ -2,18 +2,18 @@ var mongo = require('./mongo_functions');
 var fs = require('fs');
 
 function writeNote(req, res) {
-  console.log(req.body);
   // Write the note if you have a POST request
   mongo.insertDocument(req.body);
   res.send('Your note has been saved');
 }
 
 function getNote(req, res) {
-  // Send back the note, GET request
-  var noteId = req.params.num
+  // Send back the note if it exists, otherwise message it does not exist
+  var noteId = req.params.num;
   var returnNote = mongo.getDocument(req.params.num);
-  //res.send(returnNote);
-  res.send('going to put note ' + noteId + ' here');
+  var body = 'Here is the note you requested: <br>' +
+    returnNote + '<br>' + '(note id: ' + noteId + ')';
+  res.send(body);
 }
 
 function putNote(req, res) {

@@ -25,8 +25,7 @@ app.post('/note', function(req, res) {
 
 app.route('/note/:num')
   .get(function(req, res) {
-    console.log('work to server');
-    //mongo.getDoc(req, res);
+    server.getNote(req, res);
   })
   .put(function(req, res) {
     server.putNote(req, res);
