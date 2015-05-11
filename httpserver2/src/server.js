@@ -1,6 +1,7 @@
 'use strict';
 
-var server = require('./server_functions');
+//var server = require('./server_functions');
+var mongo = require('./mongo_functions');
 var express = require('express');
 var http = require('http');
 var app = express();
@@ -19,21 +20,26 @@ app.get('/', function(req, res) {
 });
 
 app.post('/note', function(req, res) {
-  server.writeNote(req, res);
+  // Write the note if you have a POST request
+  mongo.insertDocument(req, res);
 });
 
 app.route('/note/:num')
   .get(function(req, res) {
-    server.getNote(req, res);
+    // Send back the note if it exists, otherwise message it does not exist
+    mongo.getDocument(req, res);
   })
   .put(function(req, res) {
-    server.putNote(req, res);
+    // Update the note, PUT or PATCH request
+    mongo.putDocument(req, res);
   })
   .delete(function(req, res) {
-    server.deleteNote(req, res);
+    // Delete the note, DELETE request
+    mongo.deleteDocument(req, res);
   })
   .patch(function(req, res) {
-    server.putNote(req, res);
+    // Update the note, PUT or PATCH request
+    mongo.putDocument(req, res);
   });
 
 app.listen(process.env.PORT || 3000, function() {

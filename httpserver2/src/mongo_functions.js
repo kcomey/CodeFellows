@@ -72,7 +72,8 @@ var deleteDocument = function(req, res) {
   });
 };
 
-var insertDocument = function(json) {
+var insertDocument = function(req, res) {
+  var json = req.body;
   // Set up the connection to the local db
   MongoClient.connect(url, function(err, db) {
     if (err) {
