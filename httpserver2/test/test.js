@@ -17,7 +17,6 @@ describe('http server with persistence', function() {
       }
       expect(res).to.have.status(200);
       expect(res.text).to.contain('Your note has been saved');
-      console.log('test one works');
       done();
     });
   });
@@ -32,7 +31,6 @@ describe('http server with persistence', function() {
       expect(res).to.have.status(200);
       expect(res.text).to.contain('Here is the note');
       expect(res.text).to.contain('note id: 1');
-      console.log('test two works');
       done();
       });
     });
@@ -46,7 +44,6 @@ describe('http server with persistence', function() {
         throw err;
       }
       expect(res.text).to.contain('Note not found');
-      console.log('test 3 works');
       done();
       });
   });
@@ -61,7 +58,6 @@ describe('http server with persistence', function() {
           throw err;
         }
       expect(res.text).to.contain('UPDATED');
-      console.log('test 4 works');
       done();
       });
   });
@@ -74,7 +70,6 @@ describe('http server with persistence', function() {
           throw err;
         }
       expect(res.text).to.contain('Not updated');
-      console.log('test 5 works');
       done();
       });
   });
@@ -89,7 +84,6 @@ describe('http server with persistence', function() {
           throw err;
         }
       expect(res.text).to.contain('UPDATED');
-      console.log('test 6 works');
       done();
       });
   });
@@ -103,7 +97,6 @@ describe('http server with persistence', function() {
           throw err;
         }
       expect(res.text).to.contain('Not updated');
-      console.log('test 7 works');
       done();
       });
   });
@@ -116,24 +109,21 @@ describe('http server with persistence', function() {
           throw err;
         }
       expect(res.text).to.contain('Note not found');
-      console.log('test 8 works');
       done();
       });
   });
 
-/*  it('expect DELETE /note/1 to delete a note', function (done) {
+  it('expect DELETE /note/1 to delete note', function (done) {
       chai.request('http://localhost:3000')
-      .del('note/1')
-      .end(function (err, res) {
-        console.log(err);
+      .del('/note/1')
+      .end(function(err, res) {
         if (err) {
           throw err;
         }
       expect(res.text).to.contain('has been deleted');
-      console.log('test 9 works');
       done();
       });
-  });*/
+  });
 });
 
 

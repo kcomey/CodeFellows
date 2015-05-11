@@ -74,8 +74,8 @@ var insertDocument = function(req, res) {
     if (err) {
       return console.dir(err);
     }
-    // Connect to the collection
-    db.collection('notes', {strict: true}, function(err, collection) {
+    // Connect to the collection, or create if it doesn't exist
+    db.collection('notes', function(err, collection) {
       if (err) {
         return console.dir(err);
       }
