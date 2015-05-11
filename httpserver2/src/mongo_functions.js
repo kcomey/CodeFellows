@@ -52,20 +52,15 @@ var deleteDocument = function(req, res) {
       }
       // Ready to rock and roll
       var query = { noteId: noteNum };
-
-      // Need to check it exists first, then remove it if it does
-      collection.find(query).toArray(function(err, documents) {
-        if (err) {
-          throw err;
-        }
-        var note = documents[0];
+      collection.findOne(query, function(err, note) {
         if (!note) {
           res.send('Note not found. Try another number.');
         } else {
-          collection.remove(query);
-          var body = 'Your note (note id: ' + noteNum +
+          collection.remove(query, function(err, note) {
+            var body = 'Your note (note id: ' + noteNum +
             ') has been deleted.';
-          res.send(body);
+            res.send(body);
+          });
         }
       });
     });
@@ -84,9 +79,17 @@ var insertDocument = function(req, res) {
       if (err) {
         return console.dir(err);
       }
-      // Ready to rock and roll
-      collection.count(function(err, count) {
-        json.noteId = count + 1;
+      // Get the current highest note ID and then increase it by one
+      collection.find().sort({noteId: -1}).limit(1).toArray(
+        function(err, documents) {
+        if (err) {
+          throw err;
+        }
+        if (documents[0]) {
+          json.noteId = documents[0].noteId + 1;
+        } else {
+          json.noteId = 1;
+        }
         collection.insert(json, {w: 1}, function(err, result) {
           if (err) {
             return console.dir(err);
